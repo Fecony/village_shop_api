@@ -49,11 +49,6 @@ cp .env.example .env
 
 By default, application is configured to run in Docker container. You don't have to change any environment configuration
 setting.
-To run app in Docker container make sure that Docker is running.
-
-```bash
-./vendor/bin/sail up -d
-```
 
 > This command will run Docker container to install application dependencies
 > You can refer to Laravel
@@ -73,7 +68,7 @@ Run `./vendor/bin/sail artisan key:generate` to generate app key.
 
 Run `./vendor/bin/sail artisan storage:link` to create the symbolic link.
 
-Then run Laravel Sail command to run Docker in background:
+To run app in Docker container make sure that Docker is running.
 
 ```bash
 ./vendor/bin/sail up -d

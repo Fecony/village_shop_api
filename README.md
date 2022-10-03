@@ -64,15 +64,15 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-Run `./vendor/bin/sail artisan key:generate` to generate app key.
-
-Run `./vendor/bin/sail artisan storage:link` to create the symbolic link.
-
 To run app in Docker container make sure that Docker is running.
 
 ```bash
 ./vendor/bin/sail up -d
 ```
+
+Run `./vendor/bin/sail artisan key:generate` to generate app key.
+
+Run `./vendor/bin/sail artisan storage:link` to create the symbolic link.
 
 After you application is running in Docker container run `./vendor/bin/sail artisan migrate` to run migration files.
 And also run `./vendor/bin/sail artisan db:seed` to seed your database.

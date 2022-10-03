@@ -1,66 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# mini Village Market API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Village Shop API that can list products depending on age, create new products with image and to delete existing
+products.
 
-## About Laravel
+## Getting Started
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+These instructions will get you a copy of the project up and running on your local machine for development and testing
+purposes.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Prerequisites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Things you will need:
 
-## Learning Laravel
+- [PHP](https://www.php.net/downloads.php)
+- [Composer](https://getcomposer.org/download/)
+- [Docker](https://docs.docker.com/get-docker/) (optional)
+- [Laravel Valet](https://laravel.com/docs/9.x/valet) (optional)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Things you might need to test API:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- [Postman](https://www.postman.com/downloads/)
+- [Insomnia](https://insomnia.rest/download)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> Make sure you have all required PHP extensions installed on your local
+> machine https://laravel.com/docs/8.x/deployment#server-requirements
 
-## Laravel Sponsors
+## Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Clone the project
 
-### Premium Partners
+```bash
+  git clone git@github.com:Fecony/village_shop_api.git
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Go to the project directory
 
-## Contributing
+```bash
+  cd village_shop_api
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Copy .env.example file to .env on the root folder.
 
-## Code of Conduct
+```bash
+  cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Docker Path 🐳
 
-## Security Vulnerabilities
+By default, application is configured to run in Docker container. You don't have to change any environment configuration
+setting.
+To run app in Docker container make sure that Docker is running.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+  ./vendor/bin/sail up -d
+```
+
+> This command will run Docker container to install application dependencies
+> You can refer to Laravel
+> Sail [docs](https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects) for other useful
+> commands!
+
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
+Run `./vendor/bin/sail artisan key:generate` to generate app key.
+
+Run `./vendor/bin/sail artisan storage:link` to create the symbolic link.
+
+Then run Laravel Sail command to run Docker in background:
+
+```bash
+  ./vendor/bin/sail up -d
+```
+
+After you application is running in Docker container run `./vendor/bin/sail artisan migrate` to run migration files.
+And also run `./vendor/bin/sail artisan db:seed` to seed your database.
+
+### Laravel Valet Path
+
+```bash
+  composer install
+```
+
+To run application locally you have to change your `.env` file mysql settings.
+Change following settings to match your local mysql settings:
+
+```bash
+DB_HOST=127.0.0.1
+DB_PORT=3306
+# Change this settings to match you database name and mysql user
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+
+Run `php artisan key:generate` to generate app key.
+Run `php artisan storage:link` to create the symbolic link.
+
+After that run `php artisan migrate` to run migration files. And also run `php artisan db:seed` to seed your database.
+
+## Troubleshooting - Common Problems
+
+This page lists solutions to problems you might encounter. Here is a list of common problems.
+
+### Access denied for user 'sail@172.20.0.3'... | Docker 🐳
+
+- Try to run `./vendor/bin/sail down --rmi all -v`. It will remove all images used by any service and remove named
+  volumes.
+- (optional) You might run `./vendor/bin/sail build --no-cache` to build image before running next command
+- Then run `./vendor/bin/sail up -d` again to build container.
+
+### Issues with product image saving / photo seeder | Storage folder permission issue
+
+Usually it happens when you have wrong permission set on storage folder.
+
+### Cannot start service mysql: Ports are not available: listen tcp 0.0.0.0:3306: bind: address already in use
+
+Most likely you have running mysql service locally. There are 2 solutions to this issue:
+
+- You have to stop your local mysql service to make port 3306 available for docker
+- Use `FORWARD_DB_PORT` in your .env to use different port for docker port binding
+    - `FORWARD_DB_PORT=3307`
+
+## Authors
+
+- [@fecony](https://www.github.com/fecony)
+
+## Acknowledgements
+
+- Thanks to Taylor Otwell for creating Laravel ✨
+- [Readme generator](https://readme.so/)
+
+## Support
+
+For support, contact me [@fecony](https://www.github.com/fecony).
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT](https://choosealicense.com/licenses/mit/)

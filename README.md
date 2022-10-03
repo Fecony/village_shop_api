@@ -30,19 +30,19 @@ Things you might need to test API:
 Clone the project
 
 ```bash
-  git clone git@github.com:Fecony/village_shop_api.git
+git clone git@github.com:Fecony/village_shop_api.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd village_shop_api
+cd village_shop_api
 ```
 
 Copy .env.example file to .env on the root folder.
 
 ```bash
-  cp .env.example .env
+cp .env.example .env
 ```
 
 ### Docker Path 🐳
@@ -52,7 +52,7 @@ setting.
 To run app in Docker container make sure that Docker is running.
 
 ```bash
-  ./vendor/bin/sail up -d
+./vendor/bin/sail up -d
 ```
 
 > This command will run Docker container to install application dependencies
@@ -76,7 +76,7 @@ Run `./vendor/bin/sail artisan storage:link` to create the symbolic link.
 Then run Laravel Sail command to run Docker in background:
 
 ```bash
-  ./vendor/bin/sail up -d
+./vendor/bin/sail up -d
 ```
 
 After you application is running in Docker container run `./vendor/bin/sail artisan migrate` to run migration files.
@@ -85,7 +85,7 @@ And also run `./vendor/bin/sail artisan db:seed` to seed your database.
 ### Laravel Valet Path
 
 ```bash
-  composer install
+composer install
 ```
 
 To run application locally you have to change your `.env` file mysql settings.
@@ -104,6 +104,20 @@ Run `php artisan key:generate` to generate app key.
 Run `php artisan storage:link` to create the symbolic link.
 
 After that run `php artisan migrate` to run migration files. And also run `php artisan db:seed` to seed your database.
+
+### Product Restocking Job
+
+It is possible to run a job that will restock the products, to do this you need to run:
+
+```bash
+php artisan schedule:work
+```
+
+Or if you are using Docker:
+
+```bash
+./vendor/bin/sail artisan schedule:work
+```
 
 ## Troubleshooting - Common Problems
 
